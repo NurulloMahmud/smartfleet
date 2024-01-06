@@ -3,5 +3,5 @@ from users import views
 
 
 urlpatterns = [
-    
+    path('set-password/<str:verification_link>/')
 ]
