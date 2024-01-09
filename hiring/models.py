@@ -11,5 +11,7 @@ class Driver(models.Model):
     email = models.EmailField()
     phone_number = models.CharField(max_length=20)
     cdl = models.IntegerField(unique=True, null=True, blank=True)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
     
+    def __str__(self):
+        return self.first_name

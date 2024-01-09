@@ -6,3 +6,5 @@ class Company(models.Model):
     usdot = models.CharField(max_length=50)
     mc_number = models.IntegerField()
 
+    def __str__(self):
+        return self.name

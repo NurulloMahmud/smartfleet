@@ -10,6 +10,6 @@ class Department(models.Model):
 class User(AbstractUser):
     phone_number = models.CharField(max_length=15)
     password = models.TextField(null=True, blank=True)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True, blank=True)
     authorized = models.BooleanField(default=False)
 
