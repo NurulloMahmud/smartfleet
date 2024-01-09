@@ -1,5 +1,6 @@
 from django.db import models
 from hiring.models import Driver
+from management.models import Company
 
 
 
@@ -17,4 +18,5 @@ class Truck(models.Model):
     make = models.ForeignKey(TruckMake, on_delete=models.CASCADE)
     model = models.ForeignKey(TruckModel, on_delete=models.CASCADE)
     driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
+    carrier = models.ForeignKey(Company, on_delete=models.CASCADE)
     
