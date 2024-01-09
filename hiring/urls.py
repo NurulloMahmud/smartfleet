@@ -1,8 +1,7 @@
 from django.urls import path
-from management import views
 
 
-app_name = "management"
+app_name = "hiring"
 
 urlpatterns = [
     

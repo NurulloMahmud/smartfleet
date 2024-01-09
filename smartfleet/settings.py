@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     # custom
     'users',
     'management',
+    'fleet',
+    'hiring',
 
     # 3rd party
     'rest_framework',
