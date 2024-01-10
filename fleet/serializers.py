@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from fleet.models import Truck, TruckMake, TruckModel
 from hiring.models import Driver
-from hiring.serializers import DriverSerializer
+from hiring.serializers import DriverCreateSerializer, DriverRetrieveSerializer
 
 
 
@@ -36,7 +36,7 @@ class TruckCreateSerializer(serializers.ModelSerializer):
 class TruckListSerializer(serializers.ModelSerializer):
     make = TruckMakeSerializer(read_only=True)
     model = TruckModelSerializer(read_only=True)
-    driver = DriverSerializer(read_only=True)
+    driver = DriverRetrieveSerializer(read_only=True)
 
     class Meta:
         model = Truck
