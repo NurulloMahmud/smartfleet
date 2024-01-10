@@ -17,7 +17,6 @@ class TruckListCreateAPIView(generics.ListCreateAPIView):
         return Response(custom_serializer.data)
 
 
-
 class TruckRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Truck.objects.all()
     serializer_class = TruckCreateSerializer
