@@ -12,6 +12,8 @@ class Driver(models.Model):
     phone_number = models.CharField(max_length=20)
     cdl = models.IntegerField(unique=True, null=True, blank=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
+    truck = models.ForeignKey('fleet.Truck', on_delete=models.CASCADE, 
+                              null=True, blank=True, related_name='assigned_driver')
     
     def __str__(self):
         return self.first_name

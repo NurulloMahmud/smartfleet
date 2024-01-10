@@ -1,3 +1,15 @@
-from django.shortcuts import render
+from rest_framework import generics
+from hiring.serializers import DriverSerializer
+from hiring.models import Driver
 
-# Create your views here.
+
+
+class DriverListCreateView(generics.ListCreateAPIView):
+    queryset = Driver.objects.all()
+    serializer_class = DriverSerializer
+
+
+class DriverRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Driver.objects.all()
+    serializer_class = DriverSerializer
+
