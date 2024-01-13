@@ -24,9 +24,6 @@ class TruckCreateSerializer(serializers.ModelSerializer):
     model = serializers.PrimaryKeyRelatedField(
         queryset = TruckModel.objects.all(), required=False, allow_null=True
     )
-    driver = serializers.PrimaryKeyRelatedField(
-        queryset=Driver.objects.all(), allow_null=True, required=False
-    )
 
     class Meta:
         model = Truck
@@ -36,7 +33,6 @@ class TruckCreateSerializer(serializers.ModelSerializer):
 class TruckListSerializer(serializers.ModelSerializer):
     make = TruckMakeSerializer(read_only=True)
     model = TruckModelSerializer(read_only=True)
-    driver = DriverRetrieveSerializer(read_only=True)
 
     class Meta:
         model = Truck

@@ -15,8 +15,8 @@ class TruckModelAdmin(admin.ModelAdmin):
 
 
 class TruckAdmin(admin.ModelAdmin):
-    list_display = ['unit_number', 'driver', 'year', 'make', 'model']
-    search_fields = ['unit_number', 'driver']
+    list_display = ['unit_number', 'year', 'make', 'model']
+    search_fields = ['unit_number']
     list_filter = ['make', 'model', 'year', 'carrier']
 
 
