@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from fleet.models import Truck, TruckMake, TruckModel
+from fleet.models import Truck, TruckMake, TruckModel, TruckInUse
 from hiring.models import Driver
 from hiring.serializers import DriverCreateSerializer, DriverRetrieveSerializer
 
@@ -36,4 +36,27 @@ class TruckListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Truck
+        fields = '__all__'
+
+
+class TruckInUseReadSerializer(serializers.ModelSerializer):
+    drivers = DriverRetrieveSerializer(many=True)
+    truck = TruckListSerializer()
+
+    class Meta:
+        model = TruckInUse
+        fields = '__all__'
+
+
+class TruckInUseWriteSerializer(serializers.ModelSerializer):
+    drivers = serializers.PrimaryKeyRelatedField(
+        queryset = Driver.objects.all(), many=True
+    )
+
+    truck = serializers.PrimaryKeyRelatedField(
+        queryset = Truck.objects.all()
+    )
+
+    class Meta:
+        model = TruckInUse
         fields = '__all__'

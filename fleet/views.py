@@ -1,8 +1,12 @@
-from rest_framework import generics, status
+from rest_framework import generics
 from rest_framework.response import Response
+from rest_framework.viewsets import ModelViewSet
 
-from fleet.models import Truck
-from fleet.serializers import TruckCreateSerializer, TruckListSerializer
+from fleet.models import Truck, TruckInUse
+from fleet.serializers import (
+    TruckCreateSerializer, TruckListSerializer,
+    TruckInUseReadSerializer, TruckInUseWriteSerializer,
+)
 
 
 
@@ -25,4 +29,19 @@ class TruckRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
         instance = self.get_object()
         serializer = TruckListSerializer(instance)  # Serialize the instance
 
+        return Response(serializer.data)
+    
+
+class TruckInUseViewSet(ModelViewSet):
+    queryset = TruckInUse.objects.all()
+    serializer_class = TruckInUseWriteSerializer
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = TruckInUseReadSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = TruckInUseReadSerializer(instance)
         return Response(serializer.data)

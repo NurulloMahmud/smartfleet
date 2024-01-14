@@ -36,7 +36,7 @@ class Truck(models.Model):
 
 
 class TruckInUse(models.Model):
-    driver = models.ManyToManyField('hiring.Driver')
+    drivers = models.ManyToManyField('hiring.Driver')
     truck = models.ForeignKey(Truck, on_delete=models.CASCADE)
     pick_up = models.DateField(null=True, blank=True)
     drop = models.DateField(null=True, blank=True)
@@ -44,3 +44,5 @@ class TruckInUse(models.Model):
     end_milage = models.IntegerField(null=True, blank=True)
     fuel_level = models.IntegerField(null=True, blank=True)
 
+    def __str__(self) -> str:
+        return self.drivers.__str__() + str(self.truck.unit_number)
