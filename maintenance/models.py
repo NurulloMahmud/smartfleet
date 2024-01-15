@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 
 
@@ -22,6 +23,14 @@ class Case(models.Model):
     days_in_shop = models.IntegerField(null=True, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     expense = models.CharField(max_length=500)
+
+    def save(self, *args, **kwargs):
+        if self.status.name.lower() == 'shop' and not self.shop_in:
+            self.shop_in = datetime.now()
+        elif self.status.name.lower() in ['case closed', 'ready', 'awaiting docs'] and not self.shop_out:
+            self.shop_out = datetime.now()
+
+        super(Case, self).save(*args, **kwargs)
 
     def __str__(self) -> str:
         return str(self.truck.unit_number)
