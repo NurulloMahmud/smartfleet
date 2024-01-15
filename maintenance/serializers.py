@@ -18,7 +18,7 @@ class CaseWriteSerializer(serializers.ModelSerializer):
         queryset = Truck.objects.all()
     )
 
-    status = serializers.ModelSerializer(
+    status = serializers.PrimaryKeyRelatedField(
         queryset = Status.objects.all()
     )
 
