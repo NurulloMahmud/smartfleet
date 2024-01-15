@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'management',
     'fleet',
     'hiring',
+    'maintenance',
 
     # 3rd party
     'rest_framework',
