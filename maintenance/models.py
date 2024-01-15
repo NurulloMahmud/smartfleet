@@ -10,6 +10,7 @@ class Status(models.Model):
 
 
 class Case(models.Model):
+    case_number = models.CharField(max_length=50, null=True, blank=True)
     truck = models.ForeignKey('fleet.Truck', on_delete=models.CASCADE)
     created_at = models.DateField(auto_now_add=True)
     shop_address = models.TextField(null=True, blank=True)
