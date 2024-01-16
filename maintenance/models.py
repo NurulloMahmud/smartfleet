@@ -22,7 +22,7 @@ class Case(models.Model):
     status = models.ForeignKey(Status, on_delete=models.CASCADE)
     days_in_shop = models.IntegerField(null=True, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    expense = models.CharField(max_length=500)
+    expense = models.CharField(max_length=500, default='TBD')
 
     def save(self, *args, **kwargs):
         if self.status.name.lower() == 'shop' and not self.shop_in:

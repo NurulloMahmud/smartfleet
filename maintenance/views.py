@@ -4,8 +4,11 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 
-from maintenance.models import Status, Case
-from maintenance.serializers import CaseWriteSerializer, StatusSerializer, CaseReadSerializer
+from maintenance.models import Status, Case, Note
+from maintenance.serializers import (
+    CaseWriteSerializer, StatusSerializer, 
+    CaseReadSerializer, NoteSerializer
+)
 
 
 
@@ -37,4 +40,8 @@ class CaseRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Case.objects.all()
     serializer_class = CaseWriteSerializer
 
- 
+
+class NoteViewSet(ModelViewSet):
+    queryset = Note.objects.all()
+    serializer_class = NoteSerializer
+

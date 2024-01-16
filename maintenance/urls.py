@@ -4,11 +4,12 @@ from rest_framework.routers import DefaultRouter
 
 from maintenance.views import (
     StatusViewset, CaseListCreateView, 
-    CaseRetrieveUpdateDestroyView
+    CaseRetrieveUpdateDestroyView, NoteViewSet
 )
 
 router = DefaultRouter()
 router.register(r'status', StatusViewset, basename='status')
+router.register(r'note', NoteViewSet, basename='note')
 
 
 
