@@ -42,7 +42,7 @@ class NoteSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class OdodmeterReadSerializer(serializers.ModelSerializer):
+class OdometerReadSerializer(serializers.ModelSerializer):
     truck = TruckListSerializer()
 
     class Meta:

@@ -4,10 +4,11 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 
-from maintenance.models import Status, Case, Note
+from maintenance.models import Status, Case, Note, Odometer
 from maintenance.serializers import (
     CaseWriteSerializer, StatusSerializer, 
-    CaseReadSerializer, NoteSerializer
+    CaseReadSerializer, NoteSerializer,
+    OdometerWriteSerializer, OdometerReadSerializer,
 )
 
 
@@ -21,8 +22,13 @@ class CaseListCreateView(APIView):
     def get(self, request):
         queryset = Case.objects.all()
         serializer = CaseReadSerializer(queryset, many=True)
+        context = {
+                "success": True,
+                "message": "successfully created",
+                "data": serializer.data,
+            }
 
-        return Response({"Success": True , "data": serializer.data}, status=status.HTTP_200_OK)
+        return Response(context, status=status.HTTP_200_OK)
     
     def post(self, request):
         data = request.data
@@ -30,10 +36,20 @@ class CaseListCreateView(APIView):
 
         if serializer.is_valid():
             serializer.save()
+            context = {
+                "success": True,
+                "message": "successfully created",
+                "data": serializer.data,
+            }
 
-            return Response({"Success": True, "data": serializer.data}, status=status.HTTP_201_CREATED)
+            return Response(context, status=status.HTTP_201_CREATED)
         
-        return Response({"Success": False}, status=status.HTTP_400_BAD_REQUEST)
+        context = {
+            "success": False,
+            "message": "invalid data"
+        }
+
+        return Response(context, status=status.HTTP_400_BAD_REQUEST)
 
 
 class CaseRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
@@ -44,4 +60,38 @@ class CaseRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 class NoteViewSet(ModelViewSet):
     queryset = Note.objects.all()
     serializer_class = NoteSerializer
+
+
+class OdodmeterListCreateView(APIView):
+    def get(self, request):
+        queryset = Odometer.objects.all()
+        serializer = OdometerReadSerializer(queryset, many=True)
+
+        return Response({"Success": True, "data": serializer.data}, status=status.HTTP_200_OK)
+    
+    def post(self, request):
+        data = request.data
+        serializer = OdometerWriteSerializer(data=data)
+
+        if serializer.is_valid():
+            serializer.save()
+            context = {
+                "success": True,
+                "message": "successfully created",
+                "data": serializer.data,
+            }
+
+            return Response(context, status=status.HTTP_201_CREATED)
+        
+        context = {
+            "success": False,
+            "message": "invalid data",
+        }
+
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class OdodmeteRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Odometer.objects.all()
+    serializer_class = OdometerWriteSerializer
 

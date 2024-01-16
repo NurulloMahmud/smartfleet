@@ -4,7 +4,8 @@ from rest_framework.routers import DefaultRouter
 
 from maintenance.views import (
     StatusViewset, CaseListCreateView, 
-    CaseRetrieveUpdateDestroyView, NoteViewSet
+    CaseRetrieveUpdateDestroyView, NoteViewSet,
+    OdodmeteRetrieveUpdateDestroyView, OdodmeterListCreateView,
 )
 
 router = DefaultRouter()
@@ -19,4 +20,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('case/', CaseListCreateView.as_view()),
     path('case/<int:pk>/', CaseRetrieveUpdateDestroyView.as_view()),
+    path('ododmeter/', OdodmeterListCreateView.as_view()),
+    path('ododmeter/<int:pk>/', OdodmeteRetrieveUpdateDestroyView.as_view()),
 ]
