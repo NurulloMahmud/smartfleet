@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from fleet.models import Truck, TruckMake, TruckModel, TruckInUse
 from hiring.models import Driver
-from hiring.serializers import DriverCreateSerializer, DriverRetrieveSerializer
+from hiring.serializers import DriverRetrieveSerializer
 
 import re
 
