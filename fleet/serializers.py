@@ -3,6 +3,8 @@ from fleet.models import Truck, TruckMake, TruckModel, TruckInUse
 from hiring.models import Driver
 from hiring.serializers import DriverCreateSerializer, DriverRetrieveSerializer
 
+import re
+
 
 
 class TruckMakeSerializer(serializers.ModelSerializer):
@@ -28,6 +30,21 @@ class TruckCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Truck
         fields = '__all__'
+    
+    def validate_vin(self, value):
+        """
+        Validate the VIN.
+        - Length must be exactly 17 characters.
+        - Must only contain digits and capital letters.
+        - Exclude letters I, O, and Q to avoid confusion with digits.
+        """
+        if len(value) != 17:
+            raise serializers.ValidationError("VIN must be exactly 17 characters long.")
+
+        if not re.match(r'^[A-HJ-NPR-Z0-9]*$', value):
+            raise serializers.ValidationError("VIN must only contain digits and capital letters (excluding I, O, and Q).")
+
+        return value
 
 
 class TruckListSerializer(serializers.ModelSerializer):
