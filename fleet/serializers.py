@@ -43,6 +43,9 @@ class TruckCreateSerializer(serializers.ModelSerializer):
 
         if not re.match(r'^[A-HJ-NPR-Z0-9]*$', value):
             raise serializers.ValidationError("VIN must only contain digits and capital letters (excluding I, O, and Q).")
+        
+        if Truck.objects.filter(vin=value).exists():
+            raise serializers.ValidationError("VIN number exists in database already")
 
         return value
 

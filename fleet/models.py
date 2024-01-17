@@ -1,3 +1,4 @@
+from enum import unique
 from django.db import models
 from management.models import Company
 
@@ -26,7 +27,7 @@ class TruckModel(models.Model):
 
 class Truck(models.Model):
     unit_number = models.CharField(max_length=20)
-    vin = models.CharField(max_length=17)
+    vin = models.CharField(max_length=17, unique=True)
     year = models.IntegerField()
     make = models.ForeignKey(TruckMake, on_delete=models.CASCADE)
     model = models.ForeignKey(TruckModel, on_delete=models.CASCADE)
