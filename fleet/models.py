@@ -26,6 +26,7 @@ class TruckModel(models.Model):
 
 class Truck(models.Model):
     unit_number = models.CharField(max_length=20)
+    vin = models.CharField(max_length=17)
     year = models.IntegerField()
     make = models.ForeignKey(TruckMake, on_delete=models.CASCADE)
     model = models.ForeignKey(TruckModel, on_delete=models.CASCADE)
