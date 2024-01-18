@@ -57,8 +57,6 @@ class Odometer(models.Model):
 
 class Service(models.Model):
     name = models.CharField(max_length=50)
-    days_interval = models.IntegerField(null=True, blank=True)
-    mile_interval = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -69,6 +67,8 @@ class TruckService(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='trucks')
     last_service_date = models.DateField(null=True, blank=True)
     last_service_milage = models.FloatField(null=True, blank=True)
+    days_interval = models.IntegerField(null=True, blank=True)
+    mile_interval = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.truck.unit_number} >>> {self.service.name}"
