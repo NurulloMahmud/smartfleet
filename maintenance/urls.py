@@ -6,11 +6,13 @@ from maintenance.views import (
     StatusViewset, CaseListCreateView, 
     CaseRetrieveUpdateDestroyView, NoteViewSet,
     OdodmeteRetrieveUpdateDestroyView, OdodmeterListCreateView,
+    ServiceViewSet,
 )
 
 router = DefaultRouter()
 router.register(r'status', StatusViewset, basename='status')
 router.register(r'note', NoteViewSet, basename='note')
+router.register(r'service', ServiceViewSet, basename='service')
 
 
 

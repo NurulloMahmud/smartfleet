@@ -4,13 +4,22 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 
-from maintenance.models import Status, Case, Note, Odometer
+from maintenance.models import (
+    Status, Case, Note, Odometer,
+    Service,
+)
+
 from maintenance.serializers import (
     CaseWriteSerializer, StatusSerializer, 
     CaseReadSerializer, NoteSerializer,
     OdometerWriteSerializer, OdometerReadSerializer,
+    ServiceSerializer,
 )
 
+
+class ServiceViewSet(ModelViewSet):
+    queryset = Service.objects.all()
+    serializer_class = ServiceSerializer
 
 
 class StatusViewset(ModelViewSet):

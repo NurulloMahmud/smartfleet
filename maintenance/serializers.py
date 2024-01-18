@@ -1,7 +1,11 @@
 from django.utils import timezone
 
 from rest_framework import serializers
-from maintenance.models import Status, Case, Note, Odometer
+from maintenance.models import (
+    Status, Case, 
+    Note, Odometer,
+    Service, TruckService,
+)
 
 from fleet.models import Truck
 from fleet.serializers import TruckListSerializer
@@ -101,3 +105,9 @@ class OdometerWriteSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError("Odometer reading cannot decrease from the previous reading.")
 
         return data
+
+
+class ServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Service
+        fields = '__all__'
