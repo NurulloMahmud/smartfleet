@@ -6,7 +6,7 @@ from rest_framework import status
 
 from maintenance.models import (
     Status, Case, Note, Odometer,
-    Service,
+    Service, TruckService
 )
 
 from maintenance.serializers import (
@@ -15,6 +15,8 @@ from maintenance.serializers import (
     OdometerWriteSerializer, OdometerReadSerializer,
     ServiceSerializer,
 )
+
+from fleet.models import Truck
 
 
 class ServiceViewSet(ModelViewSet):
@@ -104,3 +106,7 @@ class OdodmeteRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Odometer.objects.all()
     serializer_class = OdometerWriteSerializer
 
+
+class TruckServiceScheduleView(APIView):
+    def get(self, request):
+        queryset = Truck

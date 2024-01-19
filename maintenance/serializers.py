@@ -10,6 +10,8 @@ from maintenance.models import (
 from fleet.models import Truck
 from fleet.serializers import TruckListSerializer
 
+from datetime import date
+
 
 
 
@@ -111,3 +113,32 @@ class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
         fields = '__all__'
+
+
+class TruckServiceSerializer(serializers.ModelSerializer):
+    truck = TruckListSerializer()
+    service = ServiceSerializer()
+    mile_since_last_service = serializers.SerializerMethodField()
+    days_since_last_service = serializers.SerializerMethodField()
+
+    class Meta:
+        model = TruckService
+        fields = '__all__'
+    
+    # calculate days since last service
+    def get_days_since_last_service(self, obj):
+        today = date.today()
+
+        if obj.last_service_date:
+            return (today - obj.last_service_date).days()
+        
+        return None
+
+    # calculate the miles since the last service
+    def get_mile_since_last_service(self, obj):
+        current_odometer = Odometer.objects.filter(truck=obj.truck).order_by('-date').values('odometer', ).first()
+        if obj.mile_since_last_service:
+            return current_odometer - obj.last_service_milage
+
+        return None
+
