@@ -115,7 +115,7 @@ class ServiceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class TruckServiceSerializer(serializers.ModelSerializer):
+class TruckServiceReadSerializer(serializers.ModelSerializer):
     truck = TruckListSerializer()
     service = ServiceSerializer()
     mile_since_last_service = serializers.SerializerMethodField()
@@ -142,3 +142,23 @@ class TruckServiceSerializer(serializers.ModelSerializer):
 
         return None
 
+
+class TruckServiceWriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TruckService
+        fields = '__all__'
+    
+    # check if truck with this service record exists
+    def create(self, validated_data):
+        try:
+            truck_instance = Truck.objects.get(id=validated_data.get('truck'))
+            service_instance = Service.objects.get(id=validated_data.get('service'))
+        except (Truck.DoesNotExist, Service.DoesNotExist):
+            raise serializers.ValidationError("Invalid data for truck or service")
+          
+        if TruckService.objects.filter(truck=truck_instance, service=service_instance).exists():
+            raise serializers.ValidationError("This service for this truck already exists, try updating the record instead")
+        
+        instance = TruckService.objects.create(**validated_data)
+
+        return instance

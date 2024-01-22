@@ -13,7 +13,7 @@ from maintenance.serializers import (
     CaseWriteSerializer, StatusSerializer, 
     CaseReadSerializer, NoteSerializer,
     OdometerWriteSerializer, OdometerReadSerializer,
-    ServiceSerializer,
+    ServiceSerializer, TruckServiceReadSerializer,
 )
 
 from fleet.models import Truck
@@ -109,4 +109,11 @@ class OdodmeteRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
 class TruckServiceScheduleView(APIView):
     def get(self, request):
-        queryset = Truck
+        queryset = TruckService.objects.all()
+        serializer = TruckServiceReadSerializer(queryset, many=True)
+        context = {
+            "Success": True,
+            "data": serializer.data
+        }
+
+        return Response(context, status=status.HTTP_200_OK)
