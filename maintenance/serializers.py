@@ -162,3 +162,4 @@ class TruckServiceWriteSerializer(serializers.ModelSerializer):
         instance = TruckService.objects.create(**validated_data)
 
         return instance
+

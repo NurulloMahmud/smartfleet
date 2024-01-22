@@ -14,6 +14,7 @@ from maintenance.serializers import (
     CaseReadSerializer, NoteSerializer,
     OdometerWriteSerializer, OdometerReadSerializer,
     ServiceSerializer, TruckServiceReadSerializer,
+    TruckServiceWriteSerializer,
 )
 
 from fleet.models import Truck
@@ -117,3 +118,25 @@ class TruckServiceScheduleView(APIView):
         }
 
         return Response(context, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        data = request.data
+        serializer = TruckServiceWriteSerializer(data=data)
+
+        if serializer.is_valid():
+            serializer.save()
+            context = {
+                "Success": True,
+                "data": serializer.data,
+                "Message": "data has been recorded successfully"
+            }
+
+            return Response(context, status=status.HTTP_201_CREATED)
+        
+        context = {
+            "Success": False,
+            "Message": "Invalid data entry"
+        }
+        
+        return Response(context, status=status.HTTP_400_BAD_REQUEST)
+

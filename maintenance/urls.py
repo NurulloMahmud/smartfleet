@@ -6,7 +6,7 @@ from maintenance.views import (
     StatusViewset, CaseListCreateView, 
     CaseRetrieveUpdateDestroyView, NoteViewSet,
     OdodmeteRetrieveUpdateDestroyView, OdodmeterListCreateView,
-    ServiceViewSet,
+    ServiceViewSet, TruckServiceScheduleView,
 )
 
 router = DefaultRouter()
@@ -24,4 +24,5 @@ urlpatterns = [
     path('case/<int:pk>/', CaseRetrieveUpdateDestroyView.as_view()),
     path('ododmeter/', OdodmeterListCreateView.as_view()),
     path('ododmeter/<int:pk>/', OdodmeteRetrieveUpdateDestroyView.as_view()),
+    path('service-schedule/', TruckServiceScheduleView.as_view()),
 ]
