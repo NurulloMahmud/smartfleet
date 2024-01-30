@@ -10,7 +10,7 @@ from maintenance.models import (
 from fleet.models import Truck
 from fleet.serializers import TruckListSerializer
 
-from datetime import date
+from datetime import date, timedelta
 
 
 
