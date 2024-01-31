@@ -18,7 +18,7 @@ from datetime import date, timedelta
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Status
-        fields = ['name']
+        fields = '__all__'
 
 
 class CaseWriteSerializer(serializers.ModelSerializer):
