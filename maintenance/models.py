@@ -7,13 +7,13 @@ class Status(models.Model):
     name = models.CharField(max_length=50)
     deleted = models.BooleanField(default=False)
     last_update = models.DateField(auto_now=True)
-
-    def __str__(self) -> str:
-        return self.name
     
     def delete(self, *args, **kwargs):
         self.deleted = True
         self.save()
+
+    def __str__(self) -> str:
+        return self.name
 
 
 class Case(models.Model):
