@@ -40,12 +40,12 @@ class Case(models.Model):
 
         super(Case, self).save(*args, **kwargs)
 
-    def __str__(self) -> str:
-        return str(self.truck.unit_number)
-    
     def delete(self, *args, **kwargs):
         self.deleted = True
         self.save()
+    
+    def __str__(self) -> str:
+        return str(self.truck.unit_number)
 
 
 class Note(models.Model):
@@ -56,12 +56,12 @@ class Note(models.Model):
     deleted = models.BooleanField(default=False)
     last_update = models.DateField(auto_now=True)
     
-    def __str__(self) -> str:
-        return str(self.case.truck.unit_number)
-    
     def delete(self, *args, **kwargs):
         self.deleted = True
         self.save()
+    
+    def __str__(self) -> str:
+        return str(self.case.truck.unit_number)
 
 
 class Odometer(models.Model):
@@ -71,12 +71,12 @@ class Odometer(models.Model):
     deleted = models.BooleanField(default=False)
     last_update = models.DateField(auto_now=True)
 
-    def __str__(self) -> str:
-        return f"{self.truck.unit_number} >>> {self.date}"
-    
     def delete(self, *args, **kwargs):
         self.deleted = True
         self.save()
+    
+    def __str__(self) -> str:
+        return f"{self.truck.unit_number} >>> {self.date}"
     
 
 class Service(models.Model):
@@ -84,12 +84,12 @@ class Service(models.Model):
     deleted = models.BooleanField(default=False)
     last_update = models.DateField(auto_now=True)
 
-    def __str__(self):
-        return self.name
-    
     def delete(self, *args, **kwargs):
         self.deleted = True
         self.save()
+    
+    def __str__(self):
+        return self.name
 
 
 class TruckService(models.Model):
@@ -102,10 +102,10 @@ class TruckService(models.Model):
     deleted = models.BooleanField(default=False)
     last_update = models.DateField(auto_now=True)
 
-    def __str__(self):
-        return f"{self.truck.unit_number} >>> {self.service.name}"
-    
     def delete(self, *args, **kwargs):
         self.deleted = True
         self.save()
+    
+    def __str__(self):
+        return f"{self.truck.unit_number} >>> {self.service.name}"
 
